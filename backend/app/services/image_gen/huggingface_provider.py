@@ -122,11 +122,12 @@ class HuggingFaceImageGenerationProvider(ImageGenerationProvider):
         from huggingface_hub import InferenceClient
 
         client = InferenceClient(
-            token=settings.hf_token,
+            api_key=settings.hf_token,
         )
         return client.text_to_image(
             prompt,
             model=IMAGE_GEN_MODEL,
+            provider="auto",  # Let HF select the best available provider
             width=IMAGE_GEN_WIDTH,
             height=IMAGE_GEN_HEIGHT,
             num_inference_steps=IMAGE_GEN_STEPS,
