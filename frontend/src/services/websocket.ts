@@ -11,7 +11,7 @@ import type { ServerEventType, WSMessage } from '@/types/game'
 
 type EventHandler = (data: unknown) => void
 
-const WS_BASE = import.meta.env.VITE_WS_URL ?? 'ws://localhost:8001'
+const WS_BASE = import.meta.env?.VITE_WS_URL ?? 'ws://localhost:8001'
 const MAX_RECONNECT_DELAY = 30_000
 const PING_INTERVAL = 20_000
 

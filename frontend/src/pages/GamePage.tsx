@@ -190,12 +190,12 @@ export default function GamePage() {
 }
 
 /* ── Inline score bars (briefly visible before redirect) ─────────────────── */
-function AnimatedScorePanel({ score }: { score: NonNullable<ReturnType<typeof useGameStore>['myScore']> }) {
+function AnimatedScorePanel({ score }: { score: any }) {
   const rows = [
-    { label: 'Image Match',  value: score.match_score  ?? score.accuracy * 2,         color: '#00E5FF' },
-    { label: 'Creativity',   value: score.creativity_100 ?? score.creativity * 10,     color: '#BF5FFF' },
-    { label: 'Speed',        value: score.speed_100    ?? score.speed * 10,             color: '#39FF9A' },
-    { label: 'Efficiency',   value: score.efficiency_100 ?? score.efficiency * 10,     color: '#FFD600' },
+    { label: 'Image Match',  value: score?.match_score  ?? score?.accuracy * 2 ?? 0,         color: '#00E5FF' },
+    { label: 'Creativity',   value: score?.creativity_100 ?? score?.creativity * 10 ?? 0,     color: '#BF5FFF' },
+    { label: 'Speed',        value: score?.speed_100    ?? score?.speed * 10 ?? 0,             color: '#39FF9A' },
+    { label: 'Efficiency',   value: score?.efficiency_100 ?? score?.efficiency * 10 ?? 0,     color: '#FFD600' },
   ]
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="card p-5">
@@ -229,7 +229,7 @@ function AnimatedScorePanel({ score }: { score: NonNullable<ReturnType<typeof us
           className="font-display text-2xl font-black text-neon-yellow"
           style={{ textShadow: '0 0 16px rgba(255,214,0,0.6)' }}
         >
-          {score.total}
+          {score?.total ?? 0}
         </motion.span>
       </div>
     </motion.div>
