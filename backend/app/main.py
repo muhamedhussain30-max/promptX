@@ -65,9 +65,15 @@ app = FastAPI(
 )
 
 # ── CORS ───────────────────────────────────────────────────────────────────────
+# Handle ALLOWED_ORIGINS - accept "*" or list of URLs
+if settings.allowed_origins == "*":
+    allow_origins = ["*"]
+else:
+    allow_origins = [origin.strip() for origin in settings.allowed_origins.split(",")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

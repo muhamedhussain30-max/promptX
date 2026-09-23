@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     app_version: str = "1.0.0"
     debug: bool = False
     secret_key: str = "change-me-in-production-use-a-long-random-string"
-    allowed_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
+    allowed_origins: str = "*"  # Changed to str, will handle in CORS config
 
     # ── Database ───────────────────────────────────────────────────────────
     database_url: str = "sqlite+aiosqlite:///./promptx.db"
