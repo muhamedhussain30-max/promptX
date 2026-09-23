@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { toast } from 'react-hot-toast'
 import Logo from '@/components/shared/Logo'
 import ConnectionStatus from '@/components/shared/ConnectionStatus'
 import TimerRing from '@/components/shared/TimerRing'
@@ -10,7 +9,6 @@ import { useGameStore } from '@/stores/gameStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useGameWebSocket } from '@/hooks/useGameWebSocket'
 import wsService from '@/services/websocket'
-import { gamesApi } from '@/services/api'
 import type { Player } from '@/types/game'
 
 export default function HostDashboardPage() {

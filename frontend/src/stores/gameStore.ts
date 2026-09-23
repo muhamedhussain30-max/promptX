@@ -57,7 +57,7 @@ interface GameState {
   resetRound: () => void
 }
 
-export const useGameStore = create<GameState>((set, get) => ({
+export const useGameStore = create<GameState>((set) => ({
   gameId: null,
   roomCode: null,
   gameTitle: 'PromptX Prelims',

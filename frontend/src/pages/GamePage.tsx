@@ -192,10 +192,10 @@ export default function GamePage() {
 /* ── Inline score bars (briefly visible before redirect) ─────────────────── */
 function AnimatedScorePanel({ score }: { score: any }) {
   const rows = [
-    { label: 'Image Match',  value: score.match_score  ?? score.accuracy * 2,         color: '#00E5FF' },
-    { label: 'Creativity',   value: score.creativity_100 ?? score.creativity * 10,     color: '#BF5FFF' },
-    { label: 'Speed',        value: score.speed_100    ?? score.speed * 10,             color: '#39FF9A' },
-    { label: 'Efficiency',   value: score.efficiency_100 ?? score.efficiency * 10,     color: '#FFD600' },
+    { label: 'Image Match',  value: score.match_score  || score.accuracy * 2,         color: '#00E5FF' },
+    { label: 'Creativity',   value: score.creativity_100 || score.creativity * 10,     color: '#BF5FFF' },
+    { label: 'Speed',        value: score.speed_100    || score.speed * 10,             color: '#39FF9A' },
+    { label: 'Efficiency',   value: score.efficiency_100 || score.efficiency * 10,     color: '#FFD600' },
   ]
   return (
     <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="card p-5">
