@@ -13,12 +13,13 @@ All keys are read from .env — never hardcoded here.
 """
 
 # ── Image generation ──────────────────────────────────────────────────────────
-IMAGE_GEN_MODEL    = "black-forest-labs/FLUX.1-schnell"
+# Using Stable Diffusion which is available on free serverless inference
+IMAGE_GEN_MODEL    = "stabilityai/stable-diffusion-2-1"
 IMAGE_GEN_PROVIDER = "auto"   # "auto" lets HF pick the best available provider
 IMAGE_GEN_WIDTH    = 512
 IMAGE_GEN_HEIGHT   = 512
-IMAGE_GEN_STEPS    = 4        # schnell is optimized for 1-4 steps
-IMAGE_GEN_GUIDANCE = 3.5      # recommended for schnell
+IMAGE_GEN_STEPS    = 20       # SD typically uses 20-50 steps
+IMAGE_GEN_GUIDANCE = 7.5      # recommended for SD
 
 # ── Vision evaluation ─────────────────────────────────────────────────────────
 # HuggingFace router — free tier (Qwen2.5-VL-3B is available serverless)
