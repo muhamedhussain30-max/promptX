@@ -21,11 +21,11 @@ class Settings(BaseSettings):
     allowed_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
 
     # ── Database ───────────────────────────────────────────────────────────
-    database_url: str = "postgresql+asyncpg://promptx:promptx@localhost:5432/promptx"
-    database_url_sync: str = "postgresql+psycopg2://promptx:promptx@localhost:5432/promptx"
+    database_url: str = "sqlite+aiosqlite:///./promptx.db"
+    database_url_sync: str = "sqlite:///./promptx.db"
 
     # ── Redis ──────────────────────────────────────────────────────────────
-    redis_url: str = "redis://localhost:6379/0"
+    redis_url: str = "fakeredis://"
     redis_max_connections: int = 20
 
     # ── AI Provider ────────────────────────────────────────────────────────
@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     hf_token: str = ""                   # HuggingFace user access token (hf_...)
     nanobanana_api_key: str = ""         # Nano Banana API key (nb_...)
     gemini_api_key: str = ""             # Google Gemini API key (AIza...)
+    replicate_api_token: str = ""        # Replicate API token (r8_...)
     mock_generation_delay: float = 1.5   # seconds to simulate generation in mock mode
 
     # ── Game Defaults ──────────────────────────────────────────────────────

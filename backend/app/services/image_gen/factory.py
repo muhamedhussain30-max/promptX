@@ -9,6 +9,10 @@ from app.config.settings import settings
 
 @lru_cache(maxsize=4)
 def _get_provider(provider_name: str) -> ImageGenerationProvider:
+    if provider_name == "replicate":
+        from app.services.image_gen.replicate_provider import ReplicateImageGenerationProvider
+        return ReplicateImageGenerationProvider()
+    
     if provider_name == "gemini":
         from app.services.image_gen.gemini_provider import GeminiNanoBananaImageGenerationProvider
         return GeminiNanoBananaImageGenerationProvider()
