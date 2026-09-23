@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://promptx-27td.onrender.com/api/:path*" },
+    { "source": "/ws/:path*", "destination": "https://promptx-27td.onrender.com/ws/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
