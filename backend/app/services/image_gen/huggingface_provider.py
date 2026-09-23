@@ -121,6 +121,7 @@ class HuggingFaceImageGenerationProvider(ImageGenerationProvider):
         """Synchronous generation call — runs in thread pool."""
         from huggingface_hub import InferenceClient
 
+        # Using Inference Providers API (v0.27+)
         client = InferenceClient(
             api_key=settings.hf_token,
         )
