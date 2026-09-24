@@ -100,11 +100,8 @@ class HuggingFaceDirectProvider(ImageGenerationProvider):
     async def _call_api(self, prompt: str) -> bytes:
         """Make direct HTTP request to HuggingFace Inference API"""
         
-        # Try multiple API endpoints
-        endpoints = [
-            f"https://api-inference.huggingface.co/models/{IMAGE_GEN_MODEL}",
-            f"https://huggingface.co/api-inference/models/{IMAGE_GEN_MODEL}",
-        ]
+        # Correct HuggingFace Inference API endpoint
+        api_url = f"https://api-inference.huggingface.co/models/{IMAGE_GEN_MODEL}"
         
         headers = {
             "Authorization": f"Bearer {settings.hf_token}",
@@ -121,39 +118,32 @@ class HuggingFaceDirectProvider(ImageGenerationProvider):
             }
         }
         
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            # Try first endpoint
-            try:
-                response = await client.post(
-                    endpoints[0],
-                    headers=headers,
-                    json=payload
-                )
-                
-                if response.status_code == 200:
-                    return response.content
-                
-                # If first fails, try second
-                logger.warning(
-                    "first_endpoint_failed",
-                    status=response.status_code,
-                    body=response.text[:200]
-                )
-                
-            except Exception as e:
-                logger.warning("first_endpoint_error", error=str(e))
-            
-            # Try second endpoint
+        async with httpx.AsyncClient(timeout=90.0) as client:
             response = await client.post(
-                endpoints[1],
+                api_url,
                 headers=headers,
                 json=payload
             )
             
             if response.status_code == 200:
                 return response.content
+            elif response.status_code == 503:
+                # Model is loading, wait and retry once
+                import asyncio
+                logger.info("model_loading", model=IMAGE_GEN_MODEL)
+                await asyncio.sleep(20)
+                
+                response = await client.post(
+                    api_url,
+                    headers=headers,
+                    json=payload
+                )
+                
+                if response.status_code == 200:
+                    return response.content
             
-            # Both failed
+            # API call failed
+            error_text = response.text[:500]
             raise Exception(
-                f"API returned {response.status_code}: {response.text[:500]}"
+                f"API returned {response.status_code}: {error_text}"
             )

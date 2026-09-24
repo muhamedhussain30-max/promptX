@@ -13,13 +13,13 @@ All keys are read from .env — never hardcoded here.
 """
 
 # ── Image generation ──────────────────────────────────────────────────────────
-# Using Stable Diffusion which is available on free serverless inference
-IMAGE_GEN_MODEL    = "stabilityai/stable-diffusion-2-1"
-IMAGE_GEN_PROVIDER = "auto"   # "auto" lets HF pick the best available provider
+# Using Stable Diffusion v1.4 - reliable on free HuggingFace Inference API
+IMAGE_GEN_MODEL    = "CompVis/stable-diffusion-v1-4"
+IMAGE_GEN_PROVIDER = "auto"
 IMAGE_GEN_WIDTH    = 512
 IMAGE_GEN_HEIGHT   = 512
-IMAGE_GEN_STEPS    = 20       # SD typically uses 20-50 steps
-IMAGE_GEN_GUIDANCE = 7.5      # recommended for SD
+IMAGE_GEN_STEPS    = 25
+IMAGE_GEN_GUIDANCE = 7.5
 
 # ── Vision evaluation ─────────────────────────────────────────────────────────
 # HuggingFace router — free tier (Qwen2.5-VL-3B is available serverless)
