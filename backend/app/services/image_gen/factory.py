@@ -23,8 +23,8 @@ def _get_provider(provider_name: str) -> ImageGenerationProvider:
 
     if provider_name == "huggingface":
         # Use direct HTTP implementation to bypass api-inference.huggingface.co DNS blocking
-        from app.services.image_gen.huggingface_direct import HuggingFaceDirectImageGenerationProvider
-        return HuggingFaceDirectImageGenerationProvider()
+        from app.services.image_gen.huggingface_direct import HuggingFaceDirectProvider
+        return HuggingFaceDirectProvider()
 
     if provider_name == "openai":
         from app.services.image_gen.openai_provider import OpenAIImageGenerationProvider
