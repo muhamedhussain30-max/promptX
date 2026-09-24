@@ -15,11 +15,19 @@ async def lifespan(app: FastAPI):
     configure_logging()
     logger.info("promptx_starting", version=settings.app_version, provider=settings.ai_provider)
 
-    # Auto-create tables for SQLite local dev
+    # Auto-create tables for SQLite (local dev and Render)
     if settings.database_url.startswith("sqlite"):
         from app.database.base import create_all_tables
         await create_all_tables()
         logger.info("sqlite_tables_created")
+    else:
+        # For other databases, still try to create tables (idempotent)
+        try:
+            from app.database.base import create_all_tables
+            await create_all_tables()
+            logger.info("database_tables_ensured")
+        except Exception as e:
+            logger.warning("table_creation_skipped", error=str(e))
 
     # Init Redis / fakeredis
     redis = await get_redis()
